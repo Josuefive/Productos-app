@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { productsApi } from "../api/productsApi";
 import { User } from "../interface/user";
 
@@ -51,7 +52,7 @@ export const authCheckstatus = async () => {
         return returnUserToken(data);
     }catch (error) {
         console.log(error);
-        throw new Error ('token not valid');
+        return null;
     }
 }
 
