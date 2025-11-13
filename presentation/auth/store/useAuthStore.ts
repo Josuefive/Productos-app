@@ -29,6 +29,10 @@ export const useAuthStore = create<AuthState>()( (set, get) => ({
     //acciones
     checkStatus: async () => {
     
+        if(get().user) {
+            return;
+        }
+
         const resp = await authCheckstatus();
         
         get().changeStatus(resp?.token, resp?.user);
@@ -38,6 +42,8 @@ export const useAuthStore = create<AuthState>()( (set, get) => ({
     login: async (email: string, password: string) => {
         
         const resp = await authLogin(email, password);
+
+        console.log('RESPUESTA DIRECTA DE AUTH-LOGIN:', JSON.stringify(resp, null, 2))
         return get().changeStatus(resp?.token, resp?.user);
     },
     

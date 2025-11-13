@@ -1,14 +1,45 @@
+import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
 import { ThemedText } from '@/presentation/theme/components/themed-text';
 import ThemedButton from '@/presentation/theme/components/themedButton';
 import ThemedLink from '@/presentation/theme/components/themedLink';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
-import React from 'react';
+import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, useWindowDimensions, View } from 'react-native';
 
 const LoginScreen = () => {
-
-
+    const [isPosting, setIsPosting] = useState(false);
+    const {login} = useAuthStore();
     const {height} = useWindowDimensions();
+    const backgroundColor = useThemeColor({}, 'background');
+    const [form, setForm] = useState({
+        email: '',
+        password: '',
+    })
+
+    const onlogin = async() => {
+
+        const {email, password} = form;
+
+        console.log({email, password});
+
+        if(form.email.length === 0 || form.password.length === 0) {
+            return
+        }
+        setIsPosting(true)
+
+
+        const wasSuccessful = await login(email, password);
+        setIsPosting(false) 
+
+        if (wasSuccessful) {
+            router.replace('/')
+            return;
+        }
+        alert('Error, usuario o contraseña incorrectos')
+    }
+
   return (
     <KeyboardAvoidingView
     behavior='padding'
@@ -19,6 +50,7 @@ const LoginScreen = () => {
 
     <ScrollView style = {{
         paddingHorizontal: 40,
+        backgroundColor: backgroundColor,
     }}>
         <View 
         style = {{
@@ -43,6 +75,9 @@ const LoginScreen = () => {
             keyboardType='email-address'
             autoCapitalize='none'
             icon='mail-outline'
+
+            value = {form.email}
+            onChangeText={(value) => setForm({...form, email: value})}
             />
                
           
@@ -53,6 +88,10 @@ const LoginScreen = () => {
             secureTextEntry
             autoCapitalize='none'
             icon = 'lock-closed-outline'
+
+
+            value = {form.password}
+            onChangeText={(value) => setForm({...form, password: value})}
             />  
         </View>
 
@@ -62,6 +101,9 @@ const LoginScreen = () => {
         {/* Botón*/}
         <ThemedButton
         icon = "arrow-forward-outline"
+        onPress={onlogin}
+        disabled={isPosting}
+        
         >Ingresar</ThemedButton>
 
          {/* Spacer */}

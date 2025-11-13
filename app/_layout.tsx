@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/presentation/theme/hooks/use-color-scheme';
+import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
 import React, { useEffect } from 'react';
 
 export const unstable_settings = {
@@ -16,6 +17,7 @@ export default function RootLayout() {
 
 
 
+  const backgroundColor = useThemeColor({}, 'background');
   const [fontsLoaded, fontError] = useFonts({
     'kanitRegular': require('../assets/fonts/Kanit-Regular.ttf'),
     'kanitBold': require('../assets/fonts/Kanit-Bold.ttf'),
@@ -31,12 +33,21 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
 
+
+  return (
 
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: false,
+
+        headerStyle: {
+        backgroundColor: backgroundColor,
+    },
+    contentStyle: {
+        backgroundColor: backgroundColor,
+    }
+      }}
       >
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} /> */}

@@ -20,8 +20,8 @@ const ThemedButton = ({children, icon, ...rest}:props) => {
     },
     styles.button
 
-   ] }
-   
+   ]}
+   {...rest}
    >
 
         <Text

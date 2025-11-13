@@ -12,7 +12,7 @@ interface props extends TextInputProps {
 
 const ThemedTextInput = ({icon, ...rest}:props) => {
 
-    const primaryColor = useThemeColor({}, 'primary')
+    const primaryColor = useThemeColor({}, 'promary')
     const textColor = useThemeColor({}, 'text')
 
 
