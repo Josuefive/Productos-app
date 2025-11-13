@@ -1,6 +1,6 @@
+import { sucereStorageAdapter } from '@/helpers/adapters/secure-storage.adapter';
 import axios from 'axios';
 import { Platform } from 'react-native';
-
 // TODo: conectar mediante envs vars, android e ios
 
 
@@ -23,6 +23,17 @@ const productsApi = axios.create ({
 
 
 //TODO: interceptores
+
+productsApi.interceptors.request.use(async (config) => {
+    //verificar si tenemos un token en el secure store
+
+    const token = await sucereStorageAdapter.getItem('token');
+
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config;
+})
 
 
 export { productsApi };

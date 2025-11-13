@@ -1,3 +1,4 @@
+import LogautIconButton from '@/presentation/auth/components/LogoutIconButton';
 import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
 import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
 import { Redirect, Stack } from 'expo-router';
@@ -48,10 +49,11 @@ if (status === 'unautenticated') {
     }
    }}
    >
-    <Stack.Screen name="(home)/index" 
+    <Stack.Screen 
+    name="index" 
     options={{
         title: 'productos',
-         headerShown: false 
+         headerLeft: () => <LogautIconButton/>
          }} />
    </Stack>
   )

@@ -11,6 +11,11 @@ export interface AuthResponse {
     token:    string;
 }
 
+// Esta interfaz debe coincidir con la respuesta de Postman
+interface RegisterResponse extends User {
+  token: string;
+}
+
 
 const returnUserToken = (data: AuthResponse) => {
     const {id, email, fullName, isActive, roles, token} = data;
@@ -58,3 +63,29 @@ export const authCheckstatus = async () => {
 
 
 // TODO: Tarea: Hacer el register
+
+
+export const authRegister = async (
+  fullName: string,
+  email: string,
+  password: string,
+) => {
+  try {
+    // 1. Llama a la API como en Postman
+    const { data } = await productsApi.post<RegisterResponse>('/auth/register', {
+      fullName,
+      email,
+      password,
+    });
+
+    // 2. Separa el token y el usuario de la respuesta
+    const { token, ...user } = data;
+
+    // 3. Devuelve el token y el usuario
+    return { token, user: user as User };
+    
+  } catch (error) {
+    console.log(error);
+    return null; // Devuelve null si hay un error
+  }
+};
