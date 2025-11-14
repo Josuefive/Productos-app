@@ -6,7 +6,17 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/presentation/theme/hooks/use-color-scheme';
 import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -36,7 +46,7 @@ export default function RootLayout() {
 
 
   return (
-
+    <QueryClientProvider client={queryClient}>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack
       screenOptions={{ headerShown: false,
@@ -54,6 +64,6 @@ export default function RootLayout() {
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
- 
+ </QueryClientProvider>
   );
 }
