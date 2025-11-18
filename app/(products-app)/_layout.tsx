@@ -55,7 +55,16 @@ if (status === 'unautenticated') {
         title: 'productos',
          headerLeft: () => <LogautIconButton/>
          }} />
+
+    <Stack.Screen 
+        name="products/[id]" 
+        options={{
+            title: 'Producto',
+    }} />
+
    </Stack>
+
+   
   )
 }
 

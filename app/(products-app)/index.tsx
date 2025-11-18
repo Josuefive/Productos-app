@@ -1,5 +1,5 @@
 
-import ProductList from '@/presentation/products/hooks/components/ProductList';
+import ProductList from '@/presentation/products/components/ProductList';
 import { useProducts } from '@/presentation/products/hooks/useProducts';
 import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
 import React from 'react';

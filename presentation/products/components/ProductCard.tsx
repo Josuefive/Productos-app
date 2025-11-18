@@ -24,7 +24,7 @@ export const ProductCard = ({ product }: Props) => {
       <TouchableOpacity onPress={() => router.push(`/products/${product.id}`)}>
         {product.images.length === 0 ? (
           <Image
-            source={require('../../../../assets/images/no-product-image.png')}
+            source={require('../../../assets/images/no-product-image.png')}
             style={{ width: '100%', height: 200 }}
           />
         ) : (
