@@ -6,7 +6,7 @@ import { type Product } from "../interface/product.interface";
 export const getProductsById = async (id:string):Promise<Product>=> {
 
     try {
-        const {data} = await productsApi.get<Product>(`/products/{${id}}`)
+        const {data} = await productsApi.get<Product>(`/products/${id}`)
 
          return {
                     ...data,

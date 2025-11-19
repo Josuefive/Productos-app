@@ -50,7 +50,7 @@ if (status === 'unautenticated') {
    }}
    >
     <Stack.Screen 
-    name="index" 
+    name="(home)/index" 
     options={{
         title: 'productos',
          headerLeft: () => <LogautIconButton/>
